@@ -27,3 +27,16 @@ Until the secret exists, the Deploy workflow skips with a notice instead of fail
 pnpm --filter @saves/api deploy:staging
 pnpm --filter @saves/web deploy:staging   # builds first
 ```
+
+## Secrets
+
+Secrets are set per environment with Wrangler, from the clipboard so they never land in a file or the shell history:
+
+```bash
+cd apps/api
+pbpaste | npx wrangler secret put RA_WEB_API_KEY --env staging      # Matthew's personal RA key
+pbpaste | npx wrangler secret put RA_WEB_API_KEY --env production   # the savesfm service-account key
+printf 'RA_WEB_API_KEY=%s\n' "$(pbpaste)" > .dev.vars              # local, gitignored
+```
+
+If `secret put --env staging` fails with "the latest version of your Worker isn't currently deployed", a PR preview uploaded a newer version than the one staging runs. Redeploy staging from `main` first (`pnpm --filter @saves/api deploy:staging`), then set the secret.
