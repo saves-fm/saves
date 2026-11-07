@@ -8,8 +8,16 @@ compatibility_flags = ["nodejs_compat"]
 workers_dev = true
 preview_urls = true
 
+# Workers Observability: logs and metrics in the Cloudflare dashboard
+[observability]
+enabled = true
+
 [env.staging]
 name = "saves-api-staging"
+[env.staging.observability]
+enabled = true
 
 [env.production]
 name = "saves-api"
+[env.production.observability]
+enabled = true
