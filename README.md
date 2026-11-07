@@ -62,7 +62,7 @@ pnpm dev              # web at localhost:5173, API at localhost:8787 (try /v1/he
 | `packages/api-schema` | The OpenAPI contract and generated TypeScript and Dart clients |
 | `brand` | Logo, icons, fonts and the brand guide ([README](brand/README.md)) |
 
-Before pushing, run what CI runs: `pnpm lint && pnpm typecheck && pnpm test && pnpm build`, plus `melos run analyze --no-select && melos run test --no-select` for Flutter. Releases are cut from a tag; see [`docs/releasing.md`](docs/releasing.md).
+Before pushing, run what CI runs: `pnpm lint && pnpm typecheck && pnpm test && pnpm build`, plus `melos run analyze --no-select && melos run test --no-select` for Flutter. Releases are cut from a tag ([`docs/releasing.md`](docs/releasing.md)); main deploys to staging and every PR gets a preview URL ([`docs/deploying.md`](docs/deploying.md)).
 
 ## Stack
 

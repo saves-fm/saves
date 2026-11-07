@@ -1,6 +1,15 @@
-# saves.fm API. Bindings (D1, R2, KV, Queues), staging and production
-# environments, and secrets arrive in #4 and #7.
+# saves.fm API. Bindings (D1, R2, KV, Queues) arrive with #4 and secrets with
+# #7. Deploy with --env staging or --env production; main deploys to staging
+# automatically and every PR gets a preview URL (.github/workflows/deploy.yml).
 name = "saves-api"
 main = "src/index.ts"
 compatibility_date = "2026-10-01"
 compatibility_flags = ["nodejs_compat"]
+workers_dev = true
+preview_urls = true
+
+[env.staging]
+name = "saves-api-staging"
+
+[env.production]
+name = "saves-api"
