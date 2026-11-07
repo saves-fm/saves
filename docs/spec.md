@@ -493,7 +493,7 @@ Everything here happens before the first commit, or before the milestone it's ta
 - [ ] **Domains:** register saves.fm and savesfm.com (and optionally saves-fm.com) with a registrar that supports .fm, then point DNS at Cloudflare. Check .fm renewal pricing first.
 - [ ] **Handles:** claim the GitHub org `saves-fm` (done Nov 7, 2026), the npm `@savesfm` scope, Bluesky @saves.fm, an X handle (not @SaveSFM, which is taken), and Instagram/Threads @savesfm if free.
 - [ ] **Cloudflare:** create an account and upgrade to the Workers Paid plan, which Email Sending requires. Turn on 2FA.
-- [ ] **GitHub:** create the `saves-fm` org and the `saves-fm/saves` repo. Work is pushed straight to `main`, with CI on every push; contributor PRs get CI and preview deploys. Turn on Dependabot and secret scanning.
+- [x] **GitHub:** create the `saves-fm` org and the `saves-fm/saves` repo. Work is pushed straight to `main`, with CI on every push; contributor PRs get CI and preview deploys. Turn on Dependabot and secret scanning.
 - [ ] **RetroAchievements keys:**
   - Create the dedicated `savesfm` service account.
   - Copy its web API key for production.
@@ -504,8 +504,8 @@ Everything here happens before the first commit, or before the milestone it's ta
   - JavaScript: Node LTS, pnpm, Wrangler and the `gh` CLI.
   - Flutter: the stable SDK and Melos.
   - Mobile builds: Xcode (iOS) and Android Studio (Android).
-- [ ] **GitHub backlog:** create the labels and milestones from the section below, then generate the issues.
-- [ ] **Project board:** a GitHub Projects board with columns Backlog, Ready, In progress, Review and Done.
+- [x] **GitHub backlog:** create the labels and milestones from the section below, then generate the issues.
+- [x] **Project board:** a GitHub Projects board with columns Backlog, Ready, In progress, Review and Done. Done Nov 7, 2026: [saves.fm roadmap](https://github.com/orgs/saves-fm/projects/1); the org profile and community health files live in [saves-fm/.github](https://github.com/saves-fm/.github).
 
 ### Before v0.2.0 (Foundation)
 
