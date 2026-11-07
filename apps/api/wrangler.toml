@@ -1,6 +1,8 @@
-# saves.fm API. Bindings (D1, R2, KV, Queues) arrive with #4 and secrets with
-# #7. Deploy with --env staging or --env production; main deploys to staging
-# automatically and every PR gets a preview URL (.github/workflows/deploy.yml).
+# saves.fm API. Deploy with --env staging or --env production; main deploys to
+# staging automatically and every PR gets a preview URL
+# (.github/workflows/deploy.yml). Bindings aren't inherited by environments,
+# so each one lists its own. Queues come with polling (v0.3.0, Workers Paid).
+# Secrets (RA_WEB_API_KEY) are set with `wrangler secret put`, see docs/deploying.md.
 name = "saves-api"
 main = "src/index.ts"
 compatibility_date = "2026-10-01"
@@ -12,12 +14,59 @@ preview_urls = true
 [observability]
 enabled = true
 
+# Local `wrangler dev` uses local copies of the staging resources
+[[d1_databases]]
+binding = "DB"
+database_name = "saves-staging"
+database_id = "cfa7d142-8ae7-4860-b272-20d3999e74e4"
+migrations_dir = "migrations"
+
+[[kv_namespaces]]
+binding = "CACHE"
+id = "3eeefb4384754236953b24ee7676d2c1"
+
+[[r2_buckets]]
+binding = "IMAGES"
+bucket_name = "saves-images-staging"
+
+# ── Staging ───────────────────────────────────────────────────────────────────
 [env.staging]
 name = "saves-api-staging"
+
 [env.staging.observability]
 enabled = true
 
+[[env.staging.d1_databases]]
+binding = "DB"
+database_name = "saves-staging"
+database_id = "cfa7d142-8ae7-4860-b272-20d3999e74e4"
+migrations_dir = "migrations"
+
+[[env.staging.kv_namespaces]]
+binding = "CACHE"
+id = "3eeefb4384754236953b24ee7676d2c1"
+
+[[env.staging.r2_buckets]]
+binding = "IMAGES"
+bucket_name = "saves-images-staging"
+
+# ── Production ────────────────────────────────────────────────────────────────
 [env.production]
 name = "saves-api"
+
 [env.production.observability]
 enabled = true
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "saves-production"
+database_id = "89d1adf3-e900-4b20-9c71-6ef7c72afd94"
+migrations_dir = "migrations"
+
+[[env.production.kv_namespaces]]
+binding = "CACHE"
+id = "14d6557b91834dc99ef95980115f10ca"
+
+[[env.production.r2_buckets]]
+binding = "IMAGES"
+bucket_name = "saves-images-production"
