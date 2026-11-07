@@ -1,0 +1,30 @@
+# Weekly dependency updates, grouped so each ecosystem is one PR. Security
+# updates still open as soon as an advisory lands.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule: { interval: weekly, day: monday }
+    groups:
+      npm-dev:
+        dependency-type: development
+        update-types: [minor, patch]
+      npm-prod:
+        dependency-type: production
+        update-types: [minor, patch]
+    ignore:
+      # typescript-eslint doesn't support TypeScript 7 yet
+      - dependency-name: typescript
+        versions: ['>=7']
+  - package-ecosystem: pub
+    directory: /apps/mobile
+    schedule: { interval: weekly, day: monday }
+    groups:
+      flutter:
+        patterns: ['*']
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: { interval: weekly, day: monday }
+    groups:
+      actions:
+        patterns: ['*']
