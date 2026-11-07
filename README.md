@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="brand/saves-icon-512.png" width="88" alt="saves.fm logo">
+</p>
+
 # saves.fm
 
 <p>

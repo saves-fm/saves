@@ -1,0 +1,3 @@
+# Intermediate SVGs written by build.py
+build/
+.venv/

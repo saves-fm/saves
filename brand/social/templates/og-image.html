@@ -1,0 +1,31 @@
+<!doctype html>
+<!-- saves.fm link preview. Render at the size in ?w=&h= (defaults 1200x630) with render-social.mjs. -->
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: 'Rubik'; src: url(../../fonts/Rubik-Variable.ttf); font-weight: 300 900; }
+  @font-face { font-family: 'Space Mono'; src: url(../../fonts/SpaceMono-Regular.ttf); }
+  :root { --navy: #16205C; --navy-deep: #0F1745; --cloud: #EEEDFF; --gold: #FFC93C; --periwinkle: #7480D6; }
+  html, body { margin: 0; }
+  body { width: var(--w); height: var(--h); background: radial-gradient(120% 140% at 0% 0%, var(--navy) 45%, var(--navy-deep)); color: var(--cloud); font-family: 'Rubik', sans-serif; position: relative; overflow: hidden; }
+  body::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, #ffffff08 0 2px, transparent 2px 6px); pointer-events: none; }
+  .in { position: absolute; left: 96px; right: 400px; top: 50%; transform: translateY(-50%); display: grid; gap: 30px; }
+  .lockup { height: 132px; justify-self: start; }
+  h1 { margin: 0; font-weight: 500; font-size: 44px; line-height: 1.2; max-width: 20ch; }
+  .meta { font-family: "Space Mono", monospace; font-size: 21px; line-height: 1.5; color: var(--periwinkle); letter-spacing: .02em; }
+  .bars { position: absolute; right: 96px; bottom: 0; display: flex; align-items: end; gap: 18px; opacity: .9; }
+  .bars i { display: block; width: 46px; background: var(--slot, #25307D); }
+  .bars i:last-child { background: var(--gold); }
+</style>
+<body>
+  <div class="in">
+    <img class="lockup" src="../../saves-lockup.svg" alt="saves.fm">
+    <h1>Your RetroAchievements history, charted.</h1>
+    <div class="meta">Free and open source · Not affiliated with RetroAchievements</div>
+  </div>
+  <div class="bars" aria-hidden="true"><i style="height:120px"></i><i style="height:190px"></i><i style="height:150px"></i><i style="height:260px"></i></div>
+  <script>
+    const q = new URLSearchParams(location.search);
+    document.documentElement.style.setProperty('--w', (q.get('w') || 1200) + 'px');
+    document.documentElement.style.setProperty('--h', (q.get('h') || 630) + 'px');
+  </script>
+</body>

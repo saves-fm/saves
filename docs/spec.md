@@ -370,6 +370,8 @@ A short, plain-language page next to the privacy policy, covering:
 
 ### Brand direction
 
+The final brand (signed off Nov 7, 2026) is in [`brand/`](../brand/README.md): the chart-slots logo, the Save screen palette, Pixelify Sans for display, Rubik for body text and Space Mono for data.
+
 - A clean, modern layout with Last.fm-style clarity, mixed with real retro elements.
 - **Retro elements:** a pixel display font for the logo, headings and big stat numbers; a console-era accent palette; and CRT/scanline textures in decorative places like Rewind cards, the landing hero and empty states.
 - **Readability:** body text uses a clean, readable sans so long pages stay comfortable.
@@ -509,8 +511,8 @@ Everything here happens before the first commit, or before the milestone it's ta
 
 ### Before v0.2.0 (Foundation)
 
-- [ ] **Brand basics:** the logo direction, palette for light and dark themes, a readable body sans font and a pixel display font. Check every font's license (e.g. SIL OFL) for web, app and image use, since the share-image Worker bundles them.
-- [ ] **Starting tokens:** first-pass values for type scale, spacing, radius and motion.
+- [x] **Brand basics:** done Nov 7, 2026. The logo, palette, fonts (Pixelify Sans, Rubik, Space Mono, all OFL) and icon family are in [`brand/`](../brand/README.md), with `tokens.json` as the source for `packages/tokens`.
+- [ ] **Starting tokens:** first-pass values for type scale, spacing, radius and motion. Colors and fonts are already in `brand/tokens.json`.
 - [ ] **Email sending domain:** add saves.fm to Cloudflare Email Service, publish SPF, DKIM and DMARC records, and confirm a test email reaches inboxes.
 - [ ] **String catalog format:** pick the shared source format and the tool that generates ICU messages for web and ARB files for Flutter.
 
