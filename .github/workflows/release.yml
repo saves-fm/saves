@@ -1,0 +1,56 @@
+name: Release
+
+# Runs on a version tag (v0.1.0, v0.2.0, …): publishes the GitHub release,
+# pushes a release/vX.Y.Z branch at the tag, and closes the version's
+# milestone with links to everything. See docs/releasing.md.
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: Release, branch and milestone
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # the release and release/vX.Y.Z
+      issues: write     # closing the version's milestone
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      TAG: ${{ github.ref_name }}
+      REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # all tags, to find the previous release
+
+      # The tag must match package.json, so the release badge and the apps agree
+      - name: Check the version
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if [ "v$version" != "$TAG" ]; then echo "::error::Tag $TAG but package.json says $version"; exit 1; fi
+
+      - name: Publish the GitHub release
+        run: gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --verify-tag --generate-notes --title "$TAG"
+
+      - name: Create the release branch
+        run: git push origin "$TAG^{commit}:refs/heads/release/$TAG"
+
+      # GitHub milestones can only hold issues and PRs, so the milestone links
+      # everything else: release notes, tag, branch, and the commits since the
+      # previous release. Then it's closed. No milestone with this title: skip.
+      - name: Close the milestone
+        run: |
+          number=$(gh api "repos/$REPO/milestones?state=all&per_page=100" --jq ".[] | select(.title == \"$TAG\") | .number")
+          if [ -z "$number" ]; then echo "No $TAG milestone"; exit 0; fi
+          url="https://github.com/$REPO"
+          prev=$(git describe --tags --abbrev=0 "$TAG^" 2>/dev/null || true)
+          if [ -n "$prev" ]; then
+            count=$(git rev-list --count "$prev..$TAG"); commits="$url/compare/$prev...$TAG"; since="$prev"
+          else
+            count=$(git rev-list --count "$TAG"); commits="$url/commits/$TAG"; since="the start"
+          fi
+          summary=$(gh api "repos/$REPO/milestones/$number" --jq '.description' | head -1)
+          printf -v desc '%s\nReleased %s.\nRelease notes: %s/releases/tag/%s\nTag: %s/tree/%s\nBranch: %s/tree/release/%s\nCommits (%s since %s): %s' \
+            "$summary" "$(date -u +%Y-%m-%d)" "$url" "$TAG" "$url" "$TAG" "$url" "$TAG" "$count" "$since" "$commits"
+          gh api -X PATCH "repos/$REPO/milestones/$number" -f state=closed -f description="$desc" -f due_on="$(date -u +%Y-%m-%dT23:59:59Z)" --jq '"Closed \(.title)"'

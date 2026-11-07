@@ -3,8 +3,9 @@
 Badges are committed SVGs (not shields.io links) so they load even when
 shields.io doesn't. Same flat style as the Sprout and ClearPath repos.
 
-usage: python3 scripts/badges.py
+usage: python3 scripts/badges.py   (or: pnpm badges)
 """
+import json
 from pathlib import Path
 
 OUT = Path(__file__).resolve().parent.parent / 'docs' / 'badges'
@@ -49,8 +50,16 @@ def badge(name, label, value, icon=None):
     (OUT / f'{name}.svg').write_text(svg)
 
 
+def release_label():
+    """The release badge's value: the version in package.json, or 'none yet' before v0.1.0."""
+    version = json.loads((OUT.parent.parent / 'package.json').read_text())['version']
+    return 'none yet' if version == '0.0.0' else f'v{version}'
+
+
 if __name__ == '__main__':
     OUT.mkdir(parents=True, exist_ok=True)
+    # Regenerated on every version bump; scripts/release-badge.test.mjs checks it matches package.json
+    badge('release', 'release', release_label())
     badge('status-planning', 'status', 'planning')
     badge('web-v1', 'web', 'planned for v1.0')
     badge('app-store-v2', 'App Store', 'planned for v2.0', APPLE)
