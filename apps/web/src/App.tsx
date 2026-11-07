@@ -4,7 +4,7 @@ export function App() {
   return (
     <main>
       <h1>saves.fm</h1>
-      <p>Your RetroAchievements history, charted. Coming soon.</p>
+      <p>Your RetroAchievements history, charted. Coming soon. (PR preview test)</p>
     </main>
   );
 }
