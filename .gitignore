@@ -1,4 +1,15 @@
 node_modules/
+dist/
+coverage/
 .DS_Store
 .wrangler/
 .dev.vars
+*.local
+
+# Dart / Flutter
+.dart_tool/
+build/
+pubspec_overrides.yaml
+
+*.iml
+.idea/

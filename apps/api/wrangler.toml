@@ -1,0 +1,6 @@
+# saves.fm API. Bindings (D1, R2, KV, Queues), staging and production
+# environments, and secrets arrive in #4 and #7.
+name = "saves-api"
+main = "src/index.ts"
+compatibility_date = "2026-10-01"
+compatibility_flags = ["nodejs_compat"]

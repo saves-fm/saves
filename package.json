@@ -1,0 +1,29 @@
+{
+  "name": "saves-fm",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Last.fm-style history and stats for RetroAchievements players",
+  "license": "AGPL-3.0-only",
+  "repository": "github:saves-fm/saves",
+  "type": "module",
+  "packageManager": "pnpm@10.30.1",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "pnpm --parallel --filter @saves/web --filter @saves/api dev",
+    "build": "pnpm -r build",
+    "lint": "eslint .",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test && node --test scripts/",
+    "badges": "python3 scripts/badges.py"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^9.39.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.14.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.1"
+  }
+}

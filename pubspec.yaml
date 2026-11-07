@@ -1,0 +1,27 @@
+# Dart workspace for the Flutter app, managed by Melos.
+name: saves_workspace
+publish_to: none
+
+environment:
+  sdk: ^3.13.0
+
+workspace:
+  - apps/mobile
+
+dev_dependencies:
+  melos: ^8.10.0
+
+melos:
+  scripts:
+    analyze:
+      description: Analyze every Dart package.
+      exec:
+        command: dart analyze --fatal-infos
+        concurrency: 1
+    test:
+      description: Run Flutter tests in every package that has them.
+      packageFilters:
+        dirExists: test
+      exec:
+        command: flutter test
+        concurrency: 1
