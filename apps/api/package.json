@@ -11,7 +11,7 @@
     "deploy:staging": "wrangler deploy --env staging"
   },
   "dependencies": {
-    "hono": "^4.13.17"
+    "hono": "^4.13.18"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20261107.1",
